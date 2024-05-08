@@ -31,7 +31,11 @@ async function fetchInterwikiMap(api) {
 const wikibases = {
 	wikidata: {
 		name: 'Wikidata',
-		//resolve: false,
+		// We don't want to resolve entities from wikidata but we still need some
+		// info about wikidata since some elements in wikibase are hardcoded to
+		// wikidata. `resolve: false` will prevent the extension from automatically
+		// resolving.
+		resolve: false,
 		instance: 'https://www.wikidata.org',
 		sparqlEndpoint: 'https://query.wikidata.org/sparql',
 		autodesc: 'https://autodesc.toolforge.org',
@@ -169,6 +173,88 @@ const wikibases = {
 		icon: browser.runtime.getURL('icons/commons.svg'),
 		//sparqlEndpoint: 'https://commons-query.wikimedia.org/sparql',
 	},
+
+	// configuration for datatrek starts here
+	datatrek: {
+		name: 'DataTrek',
+		instance: 'https://data.wikitrek.org',
+		wgScriptPath: '/dt',
+		icon: 'icons/datatrek.svg',
+		// you might like to add your equivalents of `props` and `items` of
+		// wikidata `props` and `items` assuming they work *exactly the same*.
+		props: {
+			// the property references in formatterURL for instance will be used
+			// to generate links from external ids.
+			formatterURL: 'P5',
+		},
+		items: {
+			human: 'Q52',
+		},
+		// this will be used to resolve wiki articles to datatrek items and
+		// hopefully the other way around.
+		sites: {
+			enma: {
+				language: 'en',
+				pagePath: 'https://memory-alpha.fandom.com/wiki/$1',
+			},
+			enmb: {
+				language: 'en',
+				pagePath: 'https://memory-beta.fandom.com/wiki/$1',
+			},
+			wikitrek: {
+				language: 'it',
+				pagePath: 'https://wikitrek.org/wiki/$1',
+			},
+		},
+	},
+
+	// an instance for testing
+	//
+	// playground: {
+	// 	name: 'Playground',
+	// 	instance: 'https://playground.wikibase.cloud',
+	// 	sparqlEndpoint: 'https://playground.wikibase.cloud/query/sparql',
+	// 	props: {
+	// 		author: 'P46',
+	// 		duration: 'P44',
+	// 		equivalentClass: 'P52',
+	// 		equivalentProperty: 'P53',
+	// 		formatterURL: 'P30',
+	// 		hasCharacteristic: 'P28',
+	// 		instanceOf: 'P1',
+	// 		isbn10: 'P48',
+	// 		isbn13: 'P49',
+	// 		location: 'P39',
+	// 		numberOfPages: 'P47',
+	// 		numberOfReviewsRatings: 'P56',
+	// 		occupation: 'P43',
+	// 		partOfTheSeries: 'P45',
+	// 		pointInTime: 'P57',
+	// 		publicationDate: 'P51',
+	// 		referenceURL: 'P31',
+	// 		retrieved: 'P54',
+	// 		reviewScore: 'P55',
+	// 		shortTitle: 'P37',
+	// 		title: 'P42',
+	// 		unitSymbol: 'P38',
+	// 		urlMatchPattern: 'P26',
+	// 		urlMatchReplacementValue: 'P27',
+	// 		websiteTitleExtractPattern: 'P29',
+	// 	},
+	// 	items: {
+	// 		allCaps: 'Q7',
+	// 		caseInsensitive: 'Q10',
+	// 		edition: 'Q20',
+	// 		film: 'Q22',
+	// 		lowercase: 'Q9',
+	// 		minute: 'Q24',
+	// 		obsoleteProperty: 'Q8',
+	// 		propertyLinkingToArticlesInMediaWikiWebsites: 'Q11',
+	// 		second: 'Q23',
+	// 		userReview: 'Q52',
+	// 		writer: 'Q21',
+	// 	},
+	// },
 };
 
 // Function to fetch manifest and update props and items for custom Wikibases
