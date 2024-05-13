@@ -1,6 +1,6 @@
 import { WBK } from './importmap/wikibase-sdk/dist/src/wikibase-sdk.js';
 import wikidataSites from './wikidataSites.mjs';
-import trekSites  from './trekSites.mjs';
+import trekSites from './trekSites.mjs';
 
 async function fetchInterwikiMap(api) {
 	// Construct the full API endpoint URL
@@ -186,76 +186,19 @@ const wikibases = {
 		props: {
 			// the property references in formatterURL for instance will be used
 			// to generate links from external ids.
+			author: 'P50',
 			formatterURL: 'P5',
+			instanceOf: 'P14',
 		},
 		items: {
 			human: 'Q52',
 		},
 		// this will be used to resolve wiki articles to datatrek items and
 		// hopefully the other way around.
-		sites: {
-			enma: {
-				language: 'en',
-				pagePath: 'https://memory-alpha.fandom.com/wiki/$1',
-			},
-			enmb: {
-				language: 'en',
-				pagePath: 'https://memory-beta.fandom.com/wiki/$1',
-			},
-			wikitrek: {
-				language: 'it',
-				pagePath: 'https://wikitrek.org/wiki/$1',
-			},
+		// imported from external file
+		sites: trekSites,
 		},
 	},
-
-	// an instance for testing
-	//
-	// playground: {
-	// 	name: 'Playground',
-	// 	instance: 'https://playground.wikibase.cloud',
-	// 	sparqlEndpoint: 'https://playground.wikibase.cloud/query/sparql',
-	// 	props: {
-	// 		author: 'P46',
-	// 		duration: 'P44',
-	// 		equivalentClass: 'P52',
-	// 		equivalentProperty: 'P53',
-	// 		formatterURL: 'P30',
-	// 		hasCharacteristic: 'P28',
-	// 		instanceOf: 'P1',
-	// 		isbn10: 'P48',
-	// 		isbn13: 'P49',
-	// 		location: 'P39',
-	// 		numberOfPages: 'P47',
-	// 		numberOfReviewsRatings: 'P56',
-	// 		occupation: 'P43',
-	// 		partOfTheSeries: 'P45',
-	// 		pointInTime: 'P57',
-	// 		publicationDate: 'P51',
-	// 		referenceURL: 'P31',
-	// 		retrieved: 'P54',
-	// 		reviewScore: 'P55',
-	// 		shortTitle: 'P37',
-	// 		title: 'P42',
-	// 		unitSymbol: 'P38',
-	// 		urlMatchPattern: 'P26',
-	// 		urlMatchReplacementValue: 'P27',
-	// 		websiteTitleExtractPattern: 'P29',
-	// 	},
-	// 	items: {
-	// 		allCaps: 'Q7',
-	// 		caseInsensitive: 'Q10',
-	// 		edition: 'Q20',
-	// 		film: 'Q22',
-	// 		lowercase: 'Q9',
-	// 		minute: 'Q24',
-	// 		obsoleteProperty: 'Q8',
-	// 		propertyLinkingToArticlesInMediaWikiWebsites: 'Q11',
-	// 		second: 'Q23',
-	// 		userReview: 'Q52',
-	// 		writer: 'Q21',
-	// 	},
-	// },
 };
 
 // Function to fetch manifest and update props and items for custom Wikibases
