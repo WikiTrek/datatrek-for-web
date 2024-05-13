@@ -197,8 +197,7 @@ const wikibases = {
 		// hopefully the other way around.
 		// imported from external file
 		sites: trekSites,
-		},
-	},
+	},	
 };
 
 // Function to fetch manifest and update props and items for custom Wikibases
