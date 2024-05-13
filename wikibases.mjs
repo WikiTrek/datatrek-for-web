@@ -1,5 +1,6 @@
 import { WBK } from './importmap/wikibase-sdk/dist/src/wikibase-sdk.js';
 import wikidataSites from './wikidataSites.mjs';
+import trekSites  from './trekSites.mjs';
 
 async function fetchInterwikiMap(api) {
 	// Construct the full API endpoint URL
