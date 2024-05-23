@@ -19,7 +19,7 @@
   },
   "sidebar_action": {
     "default_icon": "icons/datatrek.svg",
-    "default_title": "Wikibase view",
+    "default_title": "DataTrek view",
     "default_panel": "sidebar/index.html",
     "open_at_install": true
   },

@@ -183,10 +183,10 @@ const wikibases = {
 		icon: 'icons/datatrek.svg',
 		// you might like to add your equivalents of `props` and `items` of
 		// wikidata `props` and `items` assuming they work *exactly the same*.
-		props: {
+		props: {			
+			author: 'P50',
 			// the property references in formatterURL for instance will be used
 			// to generate links from external ids.
-			author: 'P50',
 			formatterURL: 'P5',
 			instanceOf: 'P14',
 		},
@@ -197,6 +197,9 @@ const wikibases = {
 		// hopefully the other way around.
 		// imported from external file
 		sites: trekSites,
+		badResolvers: [
+			'https://wikidata-externalid-url.toolforge.org/',
+		],
 	},	
 };
 
