@@ -9,6 +9,7 @@ web-ext-artifacts/
 # Claude/AI-assistant working docs — not meant for the public repo
 CLAUDE.md
 KICKSTART.md
+.claude/settings.local.json
 
 # --- Dependencies ---
 node_modules/
