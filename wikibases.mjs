@@ -111,17 +111,50 @@ const wikibases = {
 		instance: 'https://data.wikitrek.org',
 		wgScriptPath: '/dt',
 		icon: 'icons/datatrek.svg',
-		// you might like to add your equivalents of `props` and `items` of
-		// wikidata `props` and `items` assuming they work *exactly the same*.
-		props: {			
-			author: 'P50',
+		// DataTrek's own Wikibase Query Service (a WDQS/Blazegraph stack kept
+		// in sync by wdqs-updater). This is required for the `url` and
+		// `urlMatchPattern` resolvers (resolvers/index.mjs) — both bail out
+		// immediately when `sparqlEndpoint` is falsy, so without this line
+		// those two resolvers silently never ran for DataTrek at all.
+		sparqlEndpoint: 'https://query.wikitrek.org/sparql',
+		// DataTrek's property/item numbering does NOT mirror Wikidata's (e.g.
+		// Wikidata's "instance of", P31, is DataTrek's P197 — not P31). Every
+		// ID below was confirmed either directly on data.wikitrek.org, or via
+		// DataTrek's own cross-reference properties:
+		//   - P42 "Wikidata Entity": plain ID values (e.g. "P31", "Q5")
+		//   - P55 "Exact match": full URLs — sometimes to Wikidata, sometimes
+		//     to schema.org/FOAF/vcard/other vocabularies, so only the
+		//     wikidata.org ones were usable here
+		// Roles not listed below were checked and are not yet mapped on
+		// DataTrek — see claude/datatrek-server-reference.md in the project
+		// for the full discovery notes. Most of Wikidata's property-
+		// constraint / formatter-validation / review-score vocabulary likely
+		// doesn't exist on this instance yet at all, rather than just being
+		// undocumented, since DataTrek is a small, domain-specific (Star
+		// Trek) encyclopedia rather than a general-purpose knowledge base.
+		props: {
+			// NOTE: P14 was DataTrek's original "instance of" (a P31
+			// equivalent), but its meaning has since drifted to "type of
+			// page" — it now drives DataTrek's own display/sidebox logic,
+			// not Wikidata-style typing. P197 was added later as the true,
+			// unambiguous P31 twin. Use P197 here, not P14.
+			instanceOf: 'P197',
+			subclassOf: 'P181',
+			author: 'P47',
 			// the property references in formatterURL for instance will be used
 			// to generate links from external ids.
 			formatterURL: 'P5',
-			instanceOf: 'P14',
+			numberOfPages: 'P155',
+			retrieved: 'P201',
+			publicationDate: 'P95',
+			partOfTheSeries: 'P16',
+			duration: 'P32',
+			officialWebsite: 'P35',
 		},
 		items: {
 			human: 'Q52',
+			hour: 'Q12645',
+			day: 'Q12646',
 		},
 		// this will be used to resolve wiki articles to datatrek items and
 		// hopefully the other way around.

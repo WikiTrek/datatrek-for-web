@@ -1,6 +1,6 @@
 import htm from '../importmap/htm/src/index.mjs';
 import { h, render, Component } from '../importmap/preact/src/index.js';
-import { requireStylesheet } from '../../modules/requireStylesheet.mjs';
+import { requireStylesheet } from '../modules/requireStylesheet.mjs';
 import { organiseView } from './organise-view.js';
 import Main from '../components/Main.mjs';
 import WikiBaseEntityManager from '../modules/WikiBaseEntityManager.mjs';

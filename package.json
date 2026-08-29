@@ -2,7 +2,6 @@
   "name": "datatrek-for-firefox",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "user-tests": "./node_modules/http-server/bin/http-server ./user-tests",
@@ -15,11 +14,9 @@
     "esbuild": "^0.20.2",
     "glob": "^10.3.12",
     "htm": "^3.1.1",
-    "i": "^0.3.7",
     "isbn3": "^1.1.46",
     "leaflet": "^1.9.4",
     "normalize.css": "^8.0.1",
-    "npm": "^10.5.0",
     "preact": "^10.19.2",
     "wikibase-edit": "^7.0.2",
     "wikibase-sdk": "^9.2.4"
