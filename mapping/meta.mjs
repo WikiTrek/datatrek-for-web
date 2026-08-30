@@ -7,12 +7,36 @@ import {
 	TimeClaim,
 	WikibaseItemClaim,
 } from '../types/Claim.mjs';
+// Pre-bundled ES-module build of the `isbn3` npm package — see the header
+// comment in that file for why a bundle is needed instead of a normal
+// `import ... from 'isbn3'` (short version: isbn3 is CommonJS-only, and
+// this extension has no runtime bundler to convert that to a browser-
+// compatible module on the fly).
+import ISBN from '../libraries/isbn3.mjs';
 
 async function metaToEdits({ meta, wikibase, metadata, references }) {
 	const makeSignature = tag => {
 		return ['meta', new URL(metadata.location).hostname, `[${tag}]`].join(':');
 	};
 
+	/**
+	 * Parses a raw ISBN string (from a `books:isbn` / `book:isbn` Open
+	 * Graph meta tag) and maps it to whichever of the wikibase instance's
+	 * `isbn13`/`isbn10` property roles it actually has a mapped property
+	 * ID for — since not every Wikibase instance necessarily defines both
+	 * (or either) role.
+	 *
+	 * Preference order is ISBN-13 first, then ISBN-10 (matching the order
+	 * `isbnProperties` is declared in): a single physical book can have
+	 * both forms, and ISBN-13 is the modern/preferred one when available.
+	 *
+	 * @param {string} input - The raw ISBN string from the meta tag, in
+	 *   whatever formatting the source page used (with or without hyphens).
+	 * @returns {{prop: string, id: string}|undefined} The target property
+	 *   ID and the correctly-hyphenated ISBN string to store, or
+	 *   `undefined` if the input isn't a valid ISBN, or is valid but the
+	 *   instance has no mapped property for the form it parsed as.
+	 */
 	const processISBN = input => {
 		const isbnProperties = {
 			isbn13: {
